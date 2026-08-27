@@ -1,6 +1,8 @@
-package com.hemachand.ems.util;
+package com.hemachand.ems;
 
 //import com.hemachand.ems.util.DBConnection;
+
+import com.hemachand.ems.util.DBConnection;
 
 import java.sql.SQLException;
 import java.sql.Connection;
