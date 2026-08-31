@@ -12,17 +12,21 @@ public class Main
     public static void main(String args[]) throws SQLException
     {
         EmployeeDAO employeeDAO=new EmployeeDAO();
+//adding employee
+//        Employee employee=new Employee(
+//                            "Arun",
+//                            "Reddy",
+//                            "Arunreddy123@gmail.com",
+//                            "+91 9512357456",
+//                            "DevOps Engineer",
+//                            new BigDecimal("65000"),
+//                            LocalDate.of(2026,7,26)
+//                            );
+//
+//        employeeDAO.addEmployee(employee);
 
-        Employee employee=new Employee(
-                            "Arun",
-                            "Reddy",
-                            "Arunreddy123@gmail.com",
-                            "+91 9512357456",
-                            "DevOps Engineer",
-                            new BigDecimal("65000"),
-                            LocalDate.of(2026,7,26)
-                            );
-
-        employeeDAO.addEmployee(employee);
+//getting employee by ID
+        System.out.println(employeeDAO.findById(1));
+        System.out.println(employeeDAO.findById(10));
     }
 }
