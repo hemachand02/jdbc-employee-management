@@ -32,6 +32,8 @@ public class Main
 //        update the table
         System.out.println(employeeDAO.updateEmployee(2,"Backend Developer",new BigDecimal("100000")));
         System.out.println(employeeDAO.updateEmployee(12,"Backend Developer",new BigDecimal("100000")));
+//        deleting employee from database
+        System.out.println(employeeDAO.deleteEmployee(5));
 //        retrieveing all employee records
         System.out.println(employeeDAO.findAll());
     }

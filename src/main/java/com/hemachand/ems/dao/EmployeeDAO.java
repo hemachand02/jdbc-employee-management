@@ -119,4 +119,17 @@ public class EmployeeDAO {
         }
         return rowsAffected==1;
     }
+
+    public boolean deleteEmployee(int employee_id) throws SQLException
+    {
+        String sql = "DELETE from employees where employee_id=?";
+        int rowsAffected;
+        try(Connection connection =DBConnection.getConnection();
+            PreparedStatement preparedStatement=connection.prepareStatement(sql))
+        {
+            preparedStatement.setInt(1,employee_id);
+            rowsAffected=preparedStatement.executeUpdate();
+        }
+        return rowsAffected==1;
+    }
 }
