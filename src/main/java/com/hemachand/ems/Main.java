@@ -28,5 +28,7 @@ public class Main
 //getting employee by ID
         System.out.println(employeeDAO.findById(1));
         System.out.println(employeeDAO.findById(10));
+
+        System.out.println(employeeDAO.findAll());
     }
 }

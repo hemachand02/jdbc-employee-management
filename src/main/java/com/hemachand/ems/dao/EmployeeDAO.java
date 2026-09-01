@@ -13,6 +13,9 @@ import java.sql.Date;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class EmployeeDAO {
     public void addEmployee (Employee employee) throws SQLException
     {
@@ -63,5 +66,39 @@ public class EmployeeDAO {
             }
         }
     }
+    public List<Employee> findAll() throws SQLException{
+        String sql="SELECT * FROM employees";
+        List<Employee> employees=new ArrayList<>();
+        try(Connection connection =DBConnection.getConnection();
+            PreparedStatement preparedStatement=connection.prepareStatement(sql))
+        {
+            try(ResultSet resultSet=preparedStatement.executeQuery())
+            {
+                    while(resultSet.next())
+                    {
+                        int employee_id=resultSet.getInt("employee_id");
+                        String first_name=resultSet.getString("first_name");
+                        String last_name=resultSet.getString("last_name");
+                        String email=resultSet.getString("email");
+                        String phone=resultSet.getString("phone");
+                        String department=resultSet.getString("department");
+                        BigDecimal salary=resultSet.getBigDecimal("salary");
+                        LocalDate hire_date=resultSet.getDate("hire_date").toLocalDate();
 
+                        Employee employee=new Employee(
+                                employee_id,
+                                first_name,
+                                last_name,
+                                email,
+                                phone,
+                                department,
+                                salary,
+                                hire_date);
+
+                        employees.add(employee);
+                    }
+                    return employees;
+            }
+        }
+    }
 }
