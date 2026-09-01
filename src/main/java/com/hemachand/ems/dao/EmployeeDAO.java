@@ -101,4 +101,22 @@ public class EmployeeDAO {
             }
         }
     }
+    public boolean updateEmployee(int employee_id,String department,BigDecimal salary) throws SQLException
+    {
+        int rowsAffected;
+        String sql= """
+                update employees
+                set department=? , salary=? where
+                 employee_id=?""";
+        try(Connection connection=DBConnection.getConnection();
+            PreparedStatement preparedStatement=connection.prepareStatement(sql))
+        {
+            preparedStatement.setString(1,department);
+            preparedStatement.setBigDecimal(2,salary);
+            preparedStatement.setInt(3,employee_id);
+
+            rowsAffected=preparedStatement.executeUpdate();
+        }
+        return rowsAffected==1;
+    }
 }

@@ -29,6 +29,10 @@ public class Main
         System.out.println(employeeDAO.findById(1));
         System.out.println(employeeDAO.findById(10));
 
+//        update the table
+        System.out.println(employeeDAO.updateEmployee(2,"Backend Developer",new BigDecimal("100000")));
+        System.out.println(employeeDAO.updateEmployee(12,"Backend Developer",new BigDecimal("100000")));
+//        retrieveing all employee records
         System.out.println(employeeDAO.findAll());
     }
 }
