@@ -12,3 +12,14 @@ CREATE TABLE employees (
                            salary DECIMAL(10,2) NOT NULL,
                            hire_date DATE NOT NULL
 );
+
+CREATE TABLE employee_transfers (
+                                    transfer_id INT PRIMARY KEY AUTO_INCREMENT,
+                                    employee_id INT NOT NULL,
+                                    old_department VARCHAR(100) NOT NULL,
+                                    new_department VARCHAR(100) NOT NULL,
+                                    transfer_date DATE NOT NULL,
+
+                                    FOREIGN KEY (employee_id)
+                                        REFERENCES employees(employee_id)
+);
