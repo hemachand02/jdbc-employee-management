@@ -132,4 +132,50 @@ public class EmployeeDAO {
         }
         return rowsAffected==1;
     }
+
+    public boolean transferEmployee(int employee_id,String newDepartment,LocalDate transferDate) throws SQLException
+    {
+        String sql="Select department from employees Where employee_id=?";
+        try(Connection connection =DBConnection.getConnection();
+            PreparedStatement preparedStatement=connection.prepareStatement(sql)){
+            connection.setAutoCommit(false);
+            try
+            {
+            preparedStatement.setInt(1,employee_id);
+            try(ResultSet resultSet=preparedStatement.executeQuery()) {
+                if (!resultSet.next()) {
+                    return false;
+                }
+                String oldDepartment = resultSet.getString("department");
+
+                String updateSql = "update employees set department=? where employee_id=?";
+
+                try (PreparedStatement updateStatement = connection.prepareStatement(updateSql)) {
+                    updateStatement.setString(1, newDepartment);
+                    updateStatement.setInt(2, employee_id);
+                    int rowsAffected = updateStatement.executeUpdate();
+                    if (rowsAffected != 1)
+                        throw new SQLException("Employee department update failed");
+                    String insertSql = """
+                            INSERT INTO employee_transfers(employee_id,old_department,new_department,transfer_date) VALUES(?,?,?,?)""";
+                    try (PreparedStatement insertStatement = connection.prepareStatement(insertSql)) {
+                        insertStatement.setInt(1, employee_id);
+                        insertStatement.setString(2, oldDepartment);
+                        insertStatement.setString(3, newDepartment);
+                        insertStatement.setDate(4, java.sql.Date.valueOf(transferDate));
+                        int rowsAffected1 = insertStatement.executeUpdate();
+                        if (rowsAffected1 != 1)
+                            throw new SQLException("Transfer history insertion failed");
+                    }
+                }
+                connection.commit();
+                return true;
+            }
+            }catch(SQLException e){
+                connection.rollback();
+                throw e;
+            }
+
+        }
+    }
 }
