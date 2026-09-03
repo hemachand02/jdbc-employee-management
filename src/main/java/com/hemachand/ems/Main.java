@@ -2,6 +2,7 @@ package com.hemachand.ems;
 
 import com.hemachand.ems.dao.EmployeeDAO;
 import com.hemachand.ems.model.Employee;
+import com.hemachand.ems.service.EmployeeService;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -11,7 +12,8 @@ public class Main
 {
     public static void main(String args[]) throws SQLException
     {
-        EmployeeDAO employeeDAO=new EmployeeDAO();
+//        EmployeeDAO employeeDAO=new EmployeeDAO();
+        EmployeeService employeeService=new EmployeeService();
 //adding employee
 //        Employee employee=new Employee(
 //                            "Arun",
@@ -26,17 +28,17 @@ public class Main
 //        employeeDAO.addEmployee(employee);
 
 //getting employee by ID
-        System.out.println(employeeDAO.findById(1));
-        System.out.println(employeeDAO.findById(10));
+        System.out.println(employeeService.findById(1));
+        System.out.println(employeeService.findById(10));
 
 //        update the table
-        System.out.println(employeeDAO.updateEmployee(2,"Backend Developer",new BigDecimal("100000")));
-        System.out.println(employeeDAO.updateEmployee(12,"Backend Developer",new BigDecimal("100000")));
+        System.out.println(employeeService.updateEmployee(2,"Backend Developer",new BigDecimal("100000")));
+        System.out.println(employeeService.updateEmployee(12,"Backend Developer",new BigDecimal("100000")));
 //        deleting employee from database
-        System.out.println(employeeDAO.deleteEmployee(5));
+        System.out.println(employeeService.deleteEmployee(5));
 //        making a transaction
-        System.out.println(employeeDAO.transferEmployee(2,"DevOps Engineer",LocalDate.now()));
+        System.out.println(employeeService.transferEmployee(2,"DevOps Engineer",LocalDate.now()));
 //        retrieveing all employee records
-        System.out.println(employeeDAO.findAll());
+        System.out.println(employeeService.findAll());
     }
 }

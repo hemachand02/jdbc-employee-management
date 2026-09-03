@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class EmployeeDAO {
-    public void addEmployee (Employee employee) throws SQLException
+    public boolean addEmployee (Employee employee) throws SQLException
     {
         String sql= """
                 INSERT INTO employees(first_name,last_name,email,phone,department,salary,hire_date)
@@ -35,8 +35,10 @@ public class EmployeeDAO {
             preparedStatement.setDate(7, Date.valueOf(employee.getHireDate()));
 
             int rowsAffected = preparedStatement.executeUpdate();
-
+            if(rowsAffected!=1)
+                return false;
             System.out.println(rowsAffected + " employee(s) added successfully");
+            return true;
         }
     }
     public Employee findById(int employeeId) throws SQLException{
