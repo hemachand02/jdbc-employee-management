@@ -2,6 +2,7 @@ package com.hemachand.ems.service;
 
 import com.hemachand.ems.dao.EmployeeDAO;
 import com.hemachand.ems.model.Employee;
+import com.hemachand.ems.Exception.EmployeeNotFoundException;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,9 +14,18 @@ public class EmployeeService {
     public EmployeeService(){
         this.employeeDAO=new EmployeeDAO();
     }
+
     public Employee findById(int employeeId) throws SQLException {
-        return employeeDAO.findById(employeeId);
+        if(employeeId<=0){
+            throw new IllegalArgumentException("Employee ID must greater than ZERO");
+        }
+        Employee employee= employeeDAO.findById(employeeId);
+        if(employee==null){
+            throw new EmployeeNotFoundException("employee ID "+employeeId+" not found");
+        }
+        return employee;
     }
+
     public boolean transferEmployee(int employeeId, String newDepartment, LocalDate transferDate) throws SQLException
     {
         if(employeeId<=0)
@@ -33,6 +43,7 @@ public class EmployeeService {
         if(employee == null)
             throw new IllegalArgumentException("Employee cannot be null");
         return employeeDAO.addEmployee(employee);
+
     }
     public boolean updateEmployee(int employee_id,String Department,BigDecimal salary) throws SQLException
     {
